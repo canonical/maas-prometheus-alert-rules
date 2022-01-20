@@ -1,0 +1,103 @@
+---
+rule_files:
+  - ../groups.yml
+tests:
+  - interval: 10s
+    input_series:
+      - series: 'maas_virsh_storage_pool_creation_failure'
+        values: '0 1 0 0 0 1 0 1 0 0 1'
+    alert_rule_test:
+      - eval_time: 1m
+        alertname: MAASVirshStoragePoolCreationFailure
+        exp_alerts:
+          - exp_labels:
+              severity: critical
+            exp_annotations:
+              summary: "MAAS has failed to create a Virsh storage pool"
+              description: "MAAS was unable to create a storage pool for a Virsh hypervisor"
+  - interval: 10s
+    input_series:
+      - series: 'maas_virsh_fetch_description_failure'
+        values: '0 0 1 0 0 0 1 0 0 1 1'
+    alert_rule_test:
+      - eval_time: 1m
+        alertname: MAASVirshMachineDescriptionFetchFailure
+        exp_alerts:
+          - exp_labels:
+              severity: error
+            exp_annotations:
+              summary: "MAAS has failed to fetch a machine's description from Virsh"
+              description: "MAAS has failed to communicate with a Virsh hypervisor while fetching a machine's description"
+  - interval: 10s
+    input_series:
+      - series: 'maas_virsh_fetch_mac_failure'
+        values: '0 1 0 0 0 0 1 0 0 0 0'
+    alert_rule_test:
+      - eval_time: 1m
+        alertname: MAASVirshFetchMACFailure
+        exp_alerts:
+          - exp_labels:
+              severity: error
+            exp_annotations:
+              summary: "MAAS has failed to fetch a MAC address from Virsh for a machine"
+              description: "MAAS has failed to communicate with a Virsh hypervisor in order to fetch a MAC address for a machine"
+  - interval: 10s
+    input_series:
+      - series: 'maas_lxd_disk_creation_failure'
+        values: '0 1 0 0 0 0 0 0 0 0 1'
+    alert_rule_test:
+      - eval_time: 1m
+        alertname: MAASLXDDiskCreationFailure
+        exp_alerts:
+          - exp_labels:
+              severity: error
+            exp_annotations:
+              summary: "MAAS has failed to create a disk via LXD"
+              description: "MAAS has encountered an error with LXD while attempting to create a disk"
+  - interval: 10s
+    input_series:
+      - series: 'maas_lxd_fetch_machine_failure'
+        values: '0 1 0 0 0 1 0 0 0 1 0'
+    alert_rule_test:
+      - eval_time: 1m
+        alertname: MAASLXDFetchMachineFailure
+        exp_alerts:
+          - exp_labels:
+              severity: error
+            exp_annotations:
+              summary: "MAAS has failed to fetch a machine's info from LXD"
+              description: "MAAS has encountered an error with LXD while fetching a machine's info"
+  - interval: 10s
+    input_series:
+      - series: 'maas_net_subnet_ip_count{status="available", cidr="10.0.0.0/24"}'
+        values: '255 254 160 90 10 5 1 1'
+      - series: 'maas_net_subnet_ip_count{status="available", cidr="10.0.1.0/24"}'
+        values: '255 254 160 90 10 15 80 10'
+    alert_rule_test:
+      - eval_time: 5m
+        alertname: MAASIPExhaustionWarning
+        exp_alerts:
+          - exp_labels:
+              severity: warn
+              cidr: "10.0.0.0/24"
+              status: "available"
+            exp_annotations:
+              summary: "10.0.0.0/24 is getting low on available IPs"
+              description: "The subnet is close to exhausting all IPs"
+  - interval: 10s
+    input_series:
+      - series: 'maas_net_subnet_ip_count{status="available", cidr="10.0.0.0/24"}'
+        values: '255 254 160 90 10 5 0 0'
+      - series: 'maas_net_subnet_ip_count{status="available", cidr="10.0.1.0/24"}'
+        values: '255 254 160 90 10 15 80 10'
+    alert_rule_test:
+      - eval_time: 5m
+        alertname: MAASIPExhaustionCritical
+        exp_alerts:
+          - exp_labels:
+              severity: critical
+              cidr: "10.0.0.0/24"
+              status: "available"
+            exp_annotations:
+              summary: "10.0.0.0/24 has exhausted all IPs"
+              description: "The subnet has no more IPs to allocate"
