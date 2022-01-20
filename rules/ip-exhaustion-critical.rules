@@ -1,0 +1,8 @@
+- alert: MAASIPExhaustionCritical
+  expr: maas_net_subnet_ip_count{status="available"} == 0
+  for: 1m
+  labels:
+    severity: critical
+  annotations:
+    summary: "{{ $labels.cidr }} has exhausted all IPs"
+    description: The subnet has no more IPs to allocate

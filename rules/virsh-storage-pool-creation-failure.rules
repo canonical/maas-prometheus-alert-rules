@@ -1,0 +1,8 @@
+- alert: MAAS
+  expr: count(maas_virsh_storage_pool_creation_failure) > 0
+  for: 0m
+  labels:
+    severity: critical
+  annotations:
+    summary: MAAS has failed to create a Virsh storage pool
+    description: MAAS was unable to create a storage pool for a Virsh hypervisor

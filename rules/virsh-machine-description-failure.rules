@@ -1,0 +1,8 @@
+- alert: MAASVirshMachineDescriptionFetchFailure
+  expr: count(maas_virsh_fetch_description_failure) > 0
+  for: 0m
+  labels:
+    severity: error
+  annotations:
+    summary: MAAS has failed to fetch a machine's description from Virsh
+    description: MAAS has failed to communicate with a Virsh hypervisor while fetching a machine's description
