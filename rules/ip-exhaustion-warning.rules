@@ -1,0 +1,8 @@
+- alert: MAASIPExhaustionWarning
+  expr: maas_net_subnet_ip_count{status="available"} < 5
+  for: 1m
+  labels:
+    severity: warn
+  annotations:
+    summary: "{{ $labels.cidr }} is getting low on available IPs"
+    description: The subnet is close to exhausting all IPs

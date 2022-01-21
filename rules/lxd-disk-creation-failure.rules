@@ -1,0 +1,8 @@
+- alert: MAASLXDFetchMachineFailure
+  expr: count(maas_lxd_fetch_machine_failure) > 0
+  for: 0m
+  labels:
+    severity: error
+  annotations:
+    summary: MAAS has failed to fetch a machine's info from LXD
+    description: MAAS has encountered an error with LXD while fetching a machine's info

@@ -1,0 +1,13 @@
+- interval: 10s
+  input_series:
+    - series: 'maas_lxd_fetch_machine_failure'
+      values: '0 1 0 0 0 1 0 0 0 1 0'
+  alert_rule_test:
+    - eval_time: 1m
+      alertname: MAASLXDFetchMachineFailure
+      exp_alerts:
+        - exp_labels:
+            severity: error
+          exp_annotations:
+            summary: "MAAS has failed to fetch a machine's info from LXD"
+            description: "MAAS has encountered an error with LXD while fetching a machine's info"

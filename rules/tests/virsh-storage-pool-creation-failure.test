@@ -1,0 +1,13 @@
+- interval: 10s
+  input_series:
+    - series: 'maas_virsh_storage_pool_creation_failure'
+      values: '0 1 0 0 0 1 0 1 0 0 1'
+  alert_rule_test:
+    - eval_time: 1m
+      alertname: MAASVirshStoragePoolCreationFailure
+      exp_alerts:
+        - exp_labels:
+            severity: critical
+          exp_annotations:
+            summary: "MAAS has failed to create a Virsh storage pool"
+            description: "MAAS was unable to create a storage pool for a Virsh hypervisor"

@@ -1,0 +1,17 @@
+- interval: 10s
+  input_series:
+    - series: 'maas_net_subnet_ip_count{status="available", cidr="10.0.0.0/24"}'
+      values: '255 254 160 90 10 5 1 1'
+    - series: 'maas_net_subnet_ip_count{status="available", cidr="10.0.1.0/24"}'
+      values: '255 254 160 90 10 15 80 10'
+  alert_rule_test:
+    - eval_time: 5m
+      alertname: MAASIPExhaustionWarning
+      exp_alerts:
+        - exp_labels:
+            severity: warn
+            cidr: "10.0.0.0/24"
+            status: "available"
+          exp_annotations:
+            summary: "10.0.0.0/24 is getting low on available IPs"
+            description: "The subnet is close to exhausting all IPs"
