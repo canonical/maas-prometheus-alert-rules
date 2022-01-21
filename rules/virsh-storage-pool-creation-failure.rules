@@ -1,4 +1,4 @@
-- alert: MAAS
+- alert: MAASVirshStoragePoolCreationFailure
   expr: count(maas_virsh_storage_pool_creation_failure) > 0
   for: 0m
   labels:

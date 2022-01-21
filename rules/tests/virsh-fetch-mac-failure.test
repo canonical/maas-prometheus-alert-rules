@@ -1,0 +1,13 @@
+- interval: 10s
+  input_series:
+    - series: 'maas_virsh_fetch_mac_failure'
+      values: '0 1 0 0 0 0 1 0 0 0 0'
+  alert_rule_test:
+    - eval_time: 1m
+      alertname: MAASVirshFetchMACFailure
+      exp_alerts:
+        - exp_labels:
+            severity: error
+          exp_annotations:
+            summary: "MAAS has failed to fetch a MAC address from Virsh for a machine"
+            description: "MAAS has failed to communicate with a Virsh hypervisor in order to fetch a MAC address for a machine"

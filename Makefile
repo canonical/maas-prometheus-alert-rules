@@ -7,7 +7,7 @@ python-deps:
 	$(PIP) install pyyaml
 
 groups:
-	./bin/group.py --rules ./rules/*.rules --out ./rules/tests/group.yml
+	./bin/group.py --rules './rules/*.rules' --tests './rules/tests/*.test' --out group.yml --test_out group_test.yml
 
-test:
-	$(PROMTOOL) test rules ./tests/group_test.yml
+test: groups
+	$(PROMTOOL) test rules ./group_test.yml

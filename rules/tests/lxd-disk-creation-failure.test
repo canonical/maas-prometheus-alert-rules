@@ -1,0 +1,13 @@
+- interval: 10s
+  input_series:
+    - series: 'maas_lxd_disk_creation_failure'
+      values: '0 1 0 0 0 0 0 0 0 0 1'
+  alert_rule_test:
+    - eval_time: 1m
+      alertname: MAASLXDDiskCreationFailure
+      exp_alerts:
+        - exp_labels:
+            severity: error
+          exp_annotations:
+            summary: "MAAS has failed to create a disk via LXD"
+            description: "MAAS has encountered an error with LXD while attempting to create a disk"
