@@ -1,8 +1,0 @@
-- alert: MAASLXDDiskCreationFailure
-  expr: count(maas_lxd_disk_creation_failure) > 0
-  for: 0m
-  labels:
-    severity: error
-  annotations:
-    summary: MAAS has failed to create a disk via LXD
-    description: MAAS has encountered an error with LXD while attempting to create a disk
