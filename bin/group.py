@@ -21,7 +21,10 @@ class Group:
                 self.add_snippet(snippet_content)
 
     def add_snippet(self, snippet):
-        self.alerts["rules"].extend(snippet)
+        if type(snippet) == list:
+            self.alerts["rules"].extend(snippet)
+        else:
+            self.alerts["rules"].append(snippet)
 
     def data(self):
         return {"groups": [self.alerts]}

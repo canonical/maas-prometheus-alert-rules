@@ -1,0 +1,8 @@
+alert: MAASVirshFetchMACFailure
+expr: count(maas_virsh_fetch_mac_failure) > 0
+for: 0m
+labels:
+  severity: error
+annotations:
+  summary: MAAS has failed to fetch a MAC address from Virsh for a machine
+  description: MAAS has failed to communicate with a Virsh hypervisor in order to fetch a MAC address for a machine
